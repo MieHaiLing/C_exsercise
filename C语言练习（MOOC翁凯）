@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <malloc.h>
+
+//字符串对比
+int main()
+{
+	char *drt = (char *)malloc(5 * sizeof(char));
+	char *src = (char *)malloc(5 * sizeof(char));
+	int *pos = (int *)malloc(5 * sizeof(char));
+	int i = 0, j = 0;
+	int count = 0;
+	int negative = 0;
+	
+	gets(drt);
+	gets(src);
+	
+	while(src[i] != '\0'){
+		if(drt[0] == src[i])
+			pos[count++] = i;
+		i++;
+	}
+
+	for(i = 0; i < count ; i++){
+		for(j = 1; drt[j] != '\0'; j++){
+			if(drt[j] != src[pos[i] + j]){
+				pos[i] = -1;
+				negative++;
+				break;
+			}
+		}
+	}
+	
+	count -= negative;
+	
+	if(count == 0)
+		printf("-1");
+	else if(count > 0){
+		
+		i = 0;
+		while(count > 0){	
+			if(pos[i] >= 0){
+				printf("%d ", pos[i]);
+		//		if(--count != 0)
+		//			printf(" ");
+				count--;	
+			}
+			i++;
+		}		
+	}
+	
+	free(drt);
+	free(src);
+	free(pos);
+	return 0;
+}
